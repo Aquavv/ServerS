@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace ServerPickerX.Models
 {
@@ -21,6 +22,21 @@ namespace ServerPickerX.Models
         public string? ping;
 
         [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(PingCategory))]
+        public int numericPing = 999;
+
+        public string PingCategory
+        {
+            get
+            {
+                if (NumericPing == 999 && Ping != "Timeout" && !string.IsNullOrEmpty(Ping)) return "Probing...";
+                if (NumericPing < 60) return "🟢 Optimal";
+                if (NumericPing <= 120) return "🟡 Acceptable";
+                return "🔴 High Latency";
+            }
+        }
+
+        [ObservableProperty]
         public string? status;
          
         [ObservableProperty]
@@ -36,7 +52,7 @@ namespace ServerPickerX.Models
 
         private CancellationTokenSource? _cancelTokenSource;
 
-        public async void PingServer()
+        public async Task PingServer()
         {
             if (this._cancelTokenSource != null)
             {
@@ -123,6 +139,7 @@ namespace ServerPickerX.Models
                         if (res.Status == IPStatus.Success && res.RoundtripTime >= 0)
                         {
                             Ping = res.RoundtripTime + "ms";
+                            NumericPing = (int)res.RoundtripTime;
                             Status = "Online";
                             PacketLoss = "0%";
                             return; // Fallback succeeded, we can exit early
@@ -169,13 +186,15 @@ namespace ServerPickerX.Models
                     catch (Exception) { }
                 }
 
-                double lossPercent = (1 - (successCount / probeCount)) * 100;
-                Ping = successCount > 0 ? finalBestRtt + "ms" : "";
+                double lossPercent = (1 - ((double)successCount / probeCount)) * 100;
+                Ping = successCount > 0 ? finalBestRtt + "ms" : "Timeout";
+                NumericPing = successCount > 0 ? (int)finalBestRtt : 999;
                 Status = successCount > 0 ? "✅" : "❌";
                 PacketLoss = $"{lossPercent:F0}%";
             } else if (Ping == "Pinging server")
             {
-                Ping = "";
+                Ping = "Timeout";
+                NumericPing = 999;
                 PacketLoss = "";
                 Status = "❌";
             }

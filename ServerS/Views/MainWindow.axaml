@@ -98,11 +98,14 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="models:ServerModel">
                             <Border Background="Transparent" BorderBrush="{StaticResource PanelBorder}" BorderThickness="0,0,0,1" Padding="4,2" Height="34">
-                                <Grid ColumnDefinitions="Auto, *, Auto, Auto">
+                                <Grid ColumnDefinitions="Auto, *, Auto, Auto, Auto">
                                     <i:Icon Grid.Column="0" Value="fa-server" FontSize="10" Foreground="#3b82f6" VerticalAlignment="Center" Margin="0,0,8,0" Opacity="0.8"/>
                                     <TextBlock Grid.Column="1" Text="{Binding Description}" Foreground="#cbd5e1" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,10,0" />
-                                    <TextBlock Grid.Column="2" Text="{Binding Ping}" Foreground="{Binding Ping, Converter={StaticResource PingColorConverter}}" Opacity="0.9" FontSize="11" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,15,0"/>
-                                    <ToggleSwitch Grid.Column="3" IsChecked="{Binding IsSelected}" OnContent="" OffContent="" VerticalAlignment="Center" MinWidth="0" Margin="0,-4,-4,-4">
+                                    <Border Grid.Column="2" Background="#1e293b" CornerRadius="4" Padding="6,2" Margin="0,0,15,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding PingCategory}" Foreground="#94a3b8" FontSize="9" FontWeight="Bold"/>
+                                    </Border>
+                                    <TextBlock Grid.Column="3" Text="{Binding Ping}" Foreground="{Binding Ping, Converter={StaticResource PingColorConverter}}" Opacity="0.9" FontSize="11" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                    <ToggleSwitch Grid.Column="4" IsChecked="{Binding IsSelected}" OnContent="" OffContent="" VerticalAlignment="Center" MinWidth="0" Margin="0,-4,-4,-4">
                                         <ToggleSwitch.RenderTransform>
                                             <ScaleTransform ScaleX="0.70" ScaleY="0.70" />
                                         </ToggleSwitch.RenderTransform>

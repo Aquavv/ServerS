@@ -173,8 +173,7 @@ namespace ServerPickerX.ViewModels
 
             ServerModels.Clear();
             ServerModels.AddRange(serverModels);
-
-            PingServers(serverModels);
+            await PingServers(serverModels);
         }
 
         public PresetModel? GetCurrentGamePreset(string presetName)
@@ -271,7 +270,7 @@ namespace ServerPickerX.ViewModels
         }
 
         [RelayCommand]
-        public void PingServers(ICollection<ServerModel> serverModels)
+        public async Task PingServers(ICollection<ServerModel> serverModels)
         {
             if (serverModels.Count == 0)
             {
@@ -280,10 +279,13 @@ namespace ServerPickerX.ViewModels
 
             try
             {
-                foreach (ServerModel serverModel in serverModels)
-                {
-                    serverModel.PingServer();
-                }
+                var tasks = serverModels.Select(sm => sm.PingServer()).ToList();
+                await Task.WhenAll(tasks);
+
+                var sorted = ServerModels.OrderBy(s => s.NumericPing).ThenBy(s => s.Name).ToList();
+                ServerModels.Clear();
+                ServerModels.AddRange(sorted);
+                OnPropertyChanged(nameof(FilteredServerModels));
             }
             catch (InvalidOperationException)
             {
@@ -291,14 +293,18 @@ namespace ServerPickerX.ViewModels
             }
         }
 
-        public void PingSelectedServer()
+        public async Task PingSelectedServer()
         {
             if (SelectedDataGridServerModel == null)
             {
                 return;
             }
 
-            SelectedDataGridServerModel.PingServer();
+            await SelectedDataGridServerModel.PingServer();
+            var sorted = ServerModels.OrderBy(s => s.NumericPing).ThenBy(s => s.Name).ToList();
+            ServerModels.Clear();
+            ServerModels.AddRange(sorted);
+            OnPropertyChanged(nameof(FilteredServerModels));
         }
 
         [RelayCommand]
@@ -430,8 +436,8 @@ namespace ServerPickerX.ViewModels
                     await ClearLastSelectedPresetByGameModeAsync();
                 }
 
-                // Ping servers (parallel/fire-forget operation)
-                PingServers(serverModels);
+                // Ping servers and wait
+                await PingServers(serverModels);
 
                 return true;
             }

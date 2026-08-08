@@ -13,8 +13,8 @@ namespace ServerPickerX.Converters
             string str = value as string ?? "0ms";
             if (double.TryParse(str.Replace("ms", ""), NumberStyles.Any, culture, out double val))
             {
-                if (val <= 75) return Brushes.LimeGreen;
-                if (val <= 150) return Brushes.Orange;
+                if (val <= 60) return Brushes.LimeGreen;
+                if (val <= 120) return Brushes.Orange;
                 return Brushes.Red;
             }
             return Brushes.White;

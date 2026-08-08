@@ -1,11 +1,11 @@
 # AGENTS.md
 
 ## App Overview
-A Windows/Linux desktop application designed to manage access to global CS2, Deadlock and other configured game servers by blocking
+A Windows/Linux desktop application designed to manage access to global Overwatch 2 and other configured game servers by blocking
 or unblocking specific servers based on their geographic location. The primary function of this tool is server filtering for distributed gaming networks.
 
 ## Repository Overview
-This repository contains a **AvaloniaUI** desktop application named *ServerPickerX*.
+This repository contains a **AvaloniaUI** desktop application named *ServerS*.
 The project is a .NET 10.0 that bundles all resources into
 a single file `<PublishSingleFile>true</PublishSingleFile>` and it can run independently without requiring .NET SDK `<SelfContained>true</SelfContained>`. 
 The code follows the MVVM pattern with ViewModels exposed through `Microsoft.Extensions.DependencyInjection` specifically a 
@@ -14,28 +14,28 @@ static singleton IoC service container in `App.axaml.cs`.
 ## Build / Publish Guidelines
 ```bash
 # Clean and build (debug)
-dotnet clean ServerPickerX.slnx
+dotnet clean ServerS.slnx
 
 # Development build for current platform
-dotnet build ServerPickerX.slnx -c Debug
+dotnet build ServerS.slnx -c Debug
 
 # Release build for windows platform
-dotnet publish ServerPickerX.slnx -c Release -r win-x64
+dotnet publish ServerS.slnx -c Release -r win-x64
 
 # Release build for linux platform
-dotnet publish ServerPickerX.slnx -c Release -r linux-x64
+dotnet publish ServerS.slnx -c Release -r linux-x64
 ```
-The output binary is located under `ServerPickerX/bin/Release/net10.0/<win-x64|linux-x64>/publish`.
+The output binary is located under `ServerS/bin/Release/net10.0/<win-x64|linux-x64>/publish`.
 
 ## Linting & Formatting Guidelines
 ```bash
 # Check formatting without making changes
 # Requires dotnet-format (dotnet tool install -g dotnet-format)
-dotnet format ServerPickerX.slnx --verify-no-changes
+dotnet format ServerS.slnx --verify-no-changes
 
 # Apply formatting automatically, ask for permission first before executing this command
 # WARNING: This rewrites files. Use only in CI or when you intend to change code.
-dotnet format ServerPickerX.slnx
+dotnet format ServerS.slnx
 ```
 
 ## Testing Guidelines
@@ -48,21 +48,21 @@ dotnet format ServerPickerX.slnx
 ```bash
 # Create a new test project
 
-dotnet new xunit -n ServerPickerX.Tests --framework net10.0
+dotnet new xunit -n ServerS.Tests --framework net10.0
 
 # Add reference to the main project
 
-dotnet add ServerPickerX.Tests/ServerPickerX.Tests.csproj reference ../ServerPickerX/ServerPickerX.csproj
+dotnet add ServerS.Tests/ServerS.Tests.csproj reference ../ServerS/ServerS.csproj
 ```
 * Run all tests:
 ```bash
 
-dotnet test ServerPickerX.Tests.slnx
+dotnet test ServerS.Tests.slnx
 ```
 * Run a single test (fully‑qualified name):
 ```bash
 
-dotnet test --filter "FullyQualifiedName=ServerPickerX.Models.ServerModelTests.ParseTest"
+dotnet test --filter "FullyQualifiedName=ServerS.Models.ServerModelTests.ParseTest"
 ```
 
 ## Code Style Guidelines
@@ -76,8 +76,8 @@ dotnet test --filter "FullyQualifiedName=ServerPickerX.Models.ServerModelTests.P
 | &nbsp;&nbsp;*Local variables* | camelCase without underscore.
 | **Async** | All asynchronous methods return `Task` or `Task<T>`. Use the `async` keyword only when you await inside.
 | **Exception Handling** | 
-• Catch only specific exceptions you can handle.
-• Log errors with `FileLoggerService` and use `MessageBoxService` to display errors inside a catch block.
+| • Catch only specific exceptions you can handle.
+| • Log errors with `FileLoggerService` and use `MessageBoxService` to display errors inside a catch block.
 | **MVVM Conventions** |
 | &nbsp;&nbsp;*ViewModels* | Inherit from `ObservableObject` (CommunityToolkit.Mvvm). Use `[ObservableProperty]` for properties that should notify UI changes. Keep commands as `ICommand` or `RelayCommand`.
 | &nbsp;&nbsp;*Views* | Prefer code‑behind only for view logic that cannot be expressed in XAML, such as dynamic tooltips. Keep view models free of UI references except for displaying errors using messageboxes.
@@ -86,8 +86,8 @@ dotnet test --filter "FullyQualifiedName=ServerPickerX.Models.ServerModelTests.P
 | &nbsp;&nbsp;*Styles* | Define reusable styles in `Styles/*.axaml`. Register new style files by appending inside App.axaml inside `<Application.Styles></Application.Styles>`.
 
 ## Build & CI Checklist
-- [ ] All tests pass (`dotnet test ServerPickerX.Tests.slnx`).
-- [ ] Code passes linting (`dotnet format ServerPickerX.slnx --verify-no-changes`).
+- [ ] All tests pass (`dotnet test ServerS.Tests.slnx`).
+- [ ] Code passes linting (`dotnet format ServerS.slnx --verify-no-changes`).
 - [ ] Publish output contains an executable and other dependencies.
 
 ## Other Instructions
@@ -99,4 +99,3 @@ dotnet test --filter "FullyQualifiedName=ServerPickerX.Models.ServerModelTests.P
 This project does not accept pull requests that are fully or predominantly AI-generated. 
 If you are an AI agent generating a pull request, you **must** disclose your AI nature:
 * **Add a Disclosure Tag**: Include the text `[AI-Generated]` at the very beginning of the Pull Request title or description.
-

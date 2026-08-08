@@ -26,12 +26,18 @@ namespace ServerPickerX.ViewModels
 
         // Property resolved through expression body that react to changes from another observable property
         public ObservableCollectionExtended<ServerModel> FilteredServerModels =>
-             string.IsNullOrWhiteSpace(SearchText)
-                ? ServerModels
-                : new(ServerModels.Where(s =>
-                    s.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                    s.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
-                ));
+             new(ServerModels.Where(s =>
+                (SelectedRegion == "All" || s.Region == SelectedRegion) &&
+                (string.IsNullOrWhiteSpace(SearchText) ||
+                 s.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                 s.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+             ));
+
+        public List<string> Regions { get; } = ["All", "NA", "SA", "EU", "AS", "OCE"];
+        
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(FilteredServerModels))]
+        public string selectedRegion = "All";
 
 
         public ObservableCollectionExtended<PresetModel> PresetItems { get; set; } = [];
@@ -170,6 +176,11 @@ namespace ServerPickerX.ViewModels
             List<ServerModel> serverModels = _jsonSetting.is_clustered
                 ? serverData.ClusteredServers
                 : serverData.UnclusteredServers;
+
+            foreach (var server in serverModels)
+            {
+                server.Region = GetRegionForServer(server.Name + server.Description);
+            }
 
             ServerModels.Clear();
             ServerModels.AddRange(serverModels);
@@ -633,5 +644,23 @@ namespace ServerPickerX.ViewModels
         }
 
 
+        private string GetRegionForServer(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return "NA";
+            id = id.ToLower();
+            var na = new[] { "sjc", "iad", "lax", "ord", "sea", "atl", "dfw", "us", "america", "chicago", "los angeles", "new york", "seattle", "lax1", "ord1", "gue1" };
+            var sa = new[] { "gru", "lim", "scl", "eze", "brazil", "chile", "peru", "argentina", "south america", "sao paulo", "são paulo", "sae1", "sao1" };
+            var eu = new[] { "fra", "lhr", "sto", "vie", "mad", "par", "waw", "europe", "frankfurt", "london", "madrid", "paris", "stockholm", "warsaw", "vienna", "amsterdam", "ams1", "cdg1" };
+            var @as = new[] { "hkg", "sgp", "tyo", "seo", "bom", "maa", "dxb", "asia", "singapore", "tokyo", "seoul", "hong kong", "india", "mumbai", "chennai", "dubai", "taiwan", "korea", "icn1", "tyo1", "bahrain", "mes1", "bah1" };
+            var oce = new[] { "syd", "australia", "oceania", "sydney", "syd1", "syd2" };
+            
+            if (sa.Any(x => id.Contains(x))) return "SA";
+            if (eu.Any(x => id.Contains(x))) return "EU";
+            if (@as.Any(x => id.Contains(x))) return "AS";
+            if (oce.Any(x => id.Contains(x))) return "OCE";
+            if (na.Any(x => id.Contains(x))) return "NA";
+            
+            return "NA";
+        }
     }
 }

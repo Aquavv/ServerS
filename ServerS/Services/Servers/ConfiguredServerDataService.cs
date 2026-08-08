@@ -28,12 +28,23 @@ namespace ServerPickerX.Services.Servers
 
                 if (url.StartsWith("local://"))
                 {
-                    string localPath = System.IO.Path.Combine(AppContext.BaseDirectory, url.Substring("local://".Length));
-                    if (!System.IO.File.Exists(localPath))
+                    string relativePath = url.Substring("local://".Length);
+                    string localPath = System.IO.Path.Combine(AppContext.BaseDirectory, relativePath);
+                    if (System.IO.File.Exists(localPath))
                     {
-                        throw new Exception($"Local server file not found: {localPath}");
+                        stream = System.IO.File.OpenRead(localPath);
                     }
-                    stream = System.IO.File.OpenRead(localPath);
+                    else
+                    {
+                        try
+                        {
+                            stream = Avalonia.Platform.AssetLoader.Open(new Uri($"avares://ServerS/{relativePath}"));
+                        }
+                        catch
+                        {
+                            throw new Exception($"Local server file not found: {localPath} and could not be loaded from embedded assets.");
+                        }
+                    }
                 }
                 else
                 {

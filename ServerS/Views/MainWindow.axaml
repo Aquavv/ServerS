@@ -56,8 +56,7 @@
             <!-- Custom Header (Ultra-Compact) -->
             <Border Grid.Row="1" Background="{StaticResource PanelBg}" BorderBrush="{StaticResource PanelBorder}" BorderThickness="0,1,0,1" Padding="10,8">
                 <Grid RowDefinitions="Auto, Auto" RowSpacing="10">
-                    <!-- Top Line: Settings -->
-                    <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto, Auto">
+                    <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
                         <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
                             <TextBlock Text="GAME:" Foreground="#64748b" FontSize="10" VerticalAlignment="Center" FontWeight="Bold"/>
                             <ComboBox x:Name="GameModeComboBox" Classes="game-combobox" SelectionChanged="GameModeComboBox_SelectionChanged" IsEnabled="{Binding IsOperationAllowed}" Width="130" Height="24" FontSize="11" VerticalAlignment="Center"/>
@@ -66,11 +65,6 @@
                         <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8" Margin="0,0,15,0">
                             <TextBlock Text="REGION:" Foreground="#64748b" FontSize="10" VerticalAlignment="Center" FontWeight="Bold"/>
                             <ComboBox ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedRegion}" Classes="game-combobox" IsEnabled="{Binding IsOperationAllowed}" Width="80" Height="24" FontSize="11" VerticalAlignment="Center"/>
-                        </StackPanel>
-                        
-                        <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="8">
-                            <TextBlock Text="SEARCH:" Foreground="#64748b" FontSize="10" VerticalAlignment="Center" FontWeight="Bold"/>
-                            <TextBox Text="{Binding SearchText}" Watermark="Filter..." IsEnabled="{Binding IsOperationAllowed}" Width="120" Height="24" FontSize="11" VerticalAlignment="Center" Padding="4,2"/>
                         </StackPanel>
                     </Grid>
 

@@ -26,12 +26,7 @@ namespace ServerPickerX.ViewModels
 
         // Property resolved through expression body that react to changes from another observable property
         public ObservableCollectionExtended<ServerModel> FilteredServerModels =>
-             new(ServerModels.Where(s =>
-                (SelectedRegion == "All" || s.Region == SelectedRegion) &&
-                (string.IsNullOrWhiteSpace(SearchText) ||
-                 s.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
-                 s.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-             ));
+             new(ServerModels.Where(s => SelectedRegion == "All" || s.Region == SelectedRegion));
 
         public List<string> Regions { get; } = ["All", "NA", "SA", "EU", "AS", "OCE"];
         
@@ -48,10 +43,6 @@ namespace ServerPickerX.ViewModels
         // When updating a data binding property, reference by its auto property name (PascalCase)
         [ObservableProperty]
         public bool showProgressBar = false;
-
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(FilteredServerModels))]
-        public string searchText = string.Empty;
 
         [ObservableProperty]
         public bool serversLoaded = false;

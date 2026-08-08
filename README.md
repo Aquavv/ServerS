@@ -59,7 +59,7 @@ To build the installer itself, you'll need [Inno Setup 6](https://jrsoftware.org
 
 I built this tool to help the community play without lag. If it helped you out and you want to say thanks, you can buy me a coffee!
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://paypal.me/TuUsuarioPayPal)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=VFJG87D3A2UQA)
 
 ---
 

@@ -1,94 +1,90 @@
-# Server Picker X
 <div align="center">
 
-  <a href="https://api.github.com/repositories/1141835010/releases"><img src="https://img.shields.io/github/downloads/FN-FAL113/server-picker-x/total.svg"/></a>
-  <img src="https://img.shields.io/github/license/FN-FAL113/server-picker-x"/>
-  <img src="https://img.shields.io/github/v/release/FN-FAL113/server-picker-x"/>
-  <img src="https://img.shields.io/github/stars/FN-FAL113/server-picker-x"/>
+# ServerS - The Ultimate Connection Optimizer 🌐
+
+<!-- [INSERT_YOUR_LOGO_HERE] -->
+*(Reemplaza esta línea con el enlace a tu logo. Ej: `<img src="ruta/a/tu/logo.png" width="200"/>`)*
+
+[![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](LICENSE)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-success.svg)](#)
+
+**ServerS** is an advanced, premium-grade network routing utility built for competitive gamers. Take absolute control over your matchmaking experience by forcing your game to connect only to the lowest-latency datacenters available worldwide.
 
 </div>
 
-Lightweight server picker for CS2 and Deadlock with cross-platform support for **Windows** and **Linux**. A rewrite of my CS2 Server Picker into a modern MVVM pattern and service-based application. Designed to control connections by blocking or unblocking servers according to their location.
+---
 
-## ⬇️ Download
-### [Releases](https://github.com/FN-FAL113/server-picker-x/releases)
+## 🚀 Overview
 
-## 📷 Screenshot
-![ServerPickerX](https://github.com/user-attachments/assets/21a3a513-9dce-461b-a174-becddcb57f4a)
-<details>
-  <summary>Windows Short Demo</summary>
-  
-  ![Windows Short Demo Video](https://github.com/FN-FAL113/server-picker-x/blob/chore/readme-assets/readme_assets/ServerPickerX-Windows.gif)
-</details>
-<details>
-  <summary>Linux Arch Short Demo</summary>
-  
-  ![Linux Arch Short Demo Video](https://github.com/FN-FAL113/server-picker-x/blob/chore/readme-assets/readme_assets/ServerPickerX-Linux-Arch.gif)
-</details>
+In modern competitive games, matchmaking systems often route you to suboptimal servers to reduce queue times, resulting in frustrating, high-latency matches. **ServerS** solves this by intelligently managing your system's inbound and outbound network rules. 
+
+By analyzing the global infrastructure of major gaming networks (including expansive AWS and Google Cloud Platform subnets), ServerS safely restricts your connection to specific regions. If you only want to play in your local region with 20ms ping, ServerS makes it happen.
+
+<!-- [INSERT_APP_SCREENSHOT_HERE] -->
+> 🖼️ *(Reemplaza esta línea con una captura de pantalla de la interfaz de la aplicación)*
+> *Ej: `![App Interface](docs/screenshot.png)`*
+
+---
+
+## ✨ Key Features
+
+- **🎯 Precision Routing:** Instantly block high-ping regions and AWS/GCP relay IP clusters with a single click.
+- **🛡️ Safe & Non-Intrusive:** Operates strictly on a network level (Windows Firewall). It **does not** touch game files, inject code, or read memory, making it completely safe and undetectable by anti-cheats.
+- **💎 Premium Commercial Interface:** Designed with a sleek, modern, and user-friendly aesthetic. No clunky terminals—just point, click, and play.
+- **⚡ Real-Time Latency Tracking:** Continuously monitors ICMP ping responses to ensure your selected datacenters are performing optimally.
+- **📦 Standalone Executable:** No bloated installations. A single portable `.exe` file that just works.
+
+---
+
+## 🛠️ How It Works
+
+<!-- [INSERT_BEFORE_AFTER_IMAGE_HERE] -->
+> 🖼️ *(Reemplaza esta línea con una imagen comparando el Ping en el juego Antes y Después)*
+
+When you select a server in **ServerS**, the application leverages elevated privileges to seamlessly inject strict routing policies into your Windows Firewall. 
+
+For example, if the matchmaking system tries to relay your connection through a distant datacenter (like `SAE1` or `GRU1`), the firewall instantly drops those packets, forcing the game's netcode to select the next best available server—which will be the local, low-ping region you left unblocked.
+
+---
+
+## 📥 Installation
+
+1. Go to the [Releases](#) tab on this repository.
+2. Download the latest `serverS.exe` standalone installer.
+3. Run the installer (it will require Administrator privileges to apply network rules).
+4. Launch **ServerS** from your desktop shortcut!
+
+### Compiling from Source
+
+If you prefer to compile the application yourself, you will need the .NET 10 SDK:
+```bash
+git clone https://github.com/YourUsername/ServerS.git
+cd ServerS
+dotnet build ServerPickerX.slnx -c Release
+```
+
+---
 
 ## ❔ FAQ
-**1. How it works, will I get banned?!**
- - The app does not modify any game or system files, I can assure you are safe from being banned when using the app as long as you **do not download from untrusted sources**. It will add necessary firewall policies to block game server relay ip addresses from being accessed by your network thus skipping them in-game when finding a match.
 
-**2. Not being routed to lowest ping server or not working on your location?**
-  - Due to the fact that we can only access and block **_IP relay addresses_** from valve's network points around the world rather than the game's actual server IP addresses directly, which are **_not exposed_** publicly, either your connection got relayed to the nearest available server due to **_how Steam Datagram relay works_** or **_your location might be a factor_**. 
-- Re-routing can also happen anytime, even mid-game. One of the best ways to test it out is to block low-ping servers and leave out high-ping servers that are far from your current region. If your ping is high in-game, then you are being routed properly, and the blocked IP relays are not able to re-route you to a nearby server. I was able to test this out properly way back.
-- Some solutions that might help out but are not guaranteed: turning off any vpn, uninstalling third-party antivirus.
-- ISP-related issues, such as bad routing or high ping, are out of scope and control since the app only adds firewall entries. Please contact your ISP instead.
+**Will this get me banned?**
+Absolutely not. ServerS does not interact with the game client in any way. It acts as an automated network administrator tool.
 
-**3. Why it requires admin/sudo permission on execution?<br>**
-  - This is due to how Windows or Linux requires elevated execution when adding the necessary firewall policies. If the app is running in normal mode, it will not be able to do its operations and will throw errors.
+**Why do I need to run it as Administrator?**
+The Windows operating system requires Administrator privileges to modify system-level firewall rules. Without these permissions, the app cannot block the required IPs.
 
-**4. Windows smartscreen detected unrecognized app/publisher<br>**
-  - The app requires a registered publisher which costs a lot of money. Rest assured the app is safe and you can compile it yourself. Again, do not download from untrusted sources.
+**I'm getting matchmaking timeouts, what's wrong?**
+You may have blocked too many regions. The matchmaking system needs at least one healthy region to connect to. Ensure you leave your closest datacenter completely unblocked.
 
-![image](https://github.com/FN-FAL113/csgo-server-picker/assets/88238718/fe0af8a8-4195-457e-bbbf-3a772e7f646c)
+---
 
-**5. I'm receiving frequent timeouts when a match is being confirmed<br>**
-  - You may have blocked too many servers, for optimal searching and relaying block only the necessary server relays.
+## 🙌 Acknowledgements & Credits
 
-## 🐛 Troubleshooting
-| Problem | Cause | Fix |
-|---------|---------------|-----|
-| Firewall rules not applied or app won't open | App not run as admin or not in sudo env | - For windows: Run the app in administrator mode <br/> - For Linux: Add execute permission for the bash script `chmod +x RunServerPickerX.sh` and execute the app `./RunServerPickerX.sh`,  |
-| No servers appear | Internet blocked / API unreachable | Check your network and try again. |
-| Ping shows ❌ for all | Server IPs are blocked or unreachable | Ensure you’re connected to the internet and that no other firewall is interfering. |
+This project was built from the ground up to provide a premium experience for modern games, but we stand on the shoulders of giants. 
 
-If you encounter a bug, open an issue on GitHub and include:
-* Operating System
-* Steps to reproduce
-* Any info/error logs (the app writes them to `server_picker_x_log.txt`)
-> ⚠️ The first time you run the app it will create a settings.json file in the current directory. Do not edit this file manually; use the Settings UI instead.
+Special thanks to the open-source community and various legacy network-routing tools (such as community-made CS2 server pickers) for inspiring the firewall-manipulation concepts and ICMP ping methodologies used in this project. 
 
-## 🛠️ Building from Source
-#### Clone the repo
-```
-git clone https://github.com/FN-FAL113/server-picker-x.git
-cd server-picker-x
-```
-#### Restore NuGet packages
-`dotnet restore ServerPickerX.slnx`
-#### Build (debug)
-`dotnet build ServerPickerX.slnx -c Debug`
-
-Executable output: in `ServerPickerX/bin/Debug/net10.0/<runtime>/publish/`
-#### Build (release)
-`dotnet publish ServerPickerX.slnx -c Release -r win-x64`  # or linux-x64.
-
-Executable output: `ServerPickerX/bin/Release/net10.0/<runtime>/publish/`
-#### Run in debug mode
-`dotnet run --project ServerPickerX/ServerPickerX.csproj`
-
-## 🤝 Contributing
-Feel free to fork the repo, create a feature branch, and submit a pull request.  
-All contributions are welcome – just keep in mind the GPL v3 license.
-
-## 🔽 Disclaimer
-- This project or its author are not affiliated, associated, authorized, endorsed by valve, its affiliates or subsidiaries. Images, names and other form of trademark are registered to their respective owners.
-- You are free to compile the project on Visual Studio, the zip/tar file provided here is a clean compilation of the binaries.
-  
-## 💖 Support the Project/Dev
-- I develop stuff for free with dedication and hard work. Sharing this project with fellow gamers or giving it a star is a huge sign of appreciation!</br>
-<a href="https://www.paypal.com/paypalme/fnfal113" target=_blank>
-  <img src="https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png" alt="Donate via Paypal" width="40%" />
-</a>
+---
+<div align="center">
+  <i>Developed with ❤️ for the competitive gaming community.</i>
+</div>

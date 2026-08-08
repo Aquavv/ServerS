@@ -18,8 +18,8 @@ jobs:
         with:
           dotnet-version: '10.0.x'
       - name: Install dependencies
-        run: dotnet restore ServerPickerX.slnx
+        run: dotnet restore ServerS.slnx
       - name: Build
-        run: dotnet build ServerPickerX.slnx --no-restore
+        run: dotnet build ServerS.slnx --no-restore
       - name: Test (XUnit)
-        run: dotnet test ServerPickerX.Tests.slnx
+        run: dotnet test ServerS.Tests.slnx

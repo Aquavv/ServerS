@@ -9,7 +9,7 @@
 
 By adding simple Windows Firewall rules, the app blocks the IP addresses of servers you don't want (including the new AWS and Google Cloud servers Blizzard is using). This forces the game to connect you to your best local server.
 
-### 🌟 [Download ServerS Here](https://Aquavv.github.io/ServerS---Game)
+### 🌟 [Download ServerS Here](https://aquavv.github.io/ServerS/)
 
 ---
 

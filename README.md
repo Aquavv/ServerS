@@ -1,6 +1,6 @@
-<div align="center">
-
 # ServerS - The Ultimate Connection Optimizer 🌐
+
+### 🌟 [Visita el Sitio Web Oficial para Descargar ServerS](https://FN-FAL113.github.io/ServerS)
 
 <!-- [INSERT_YOUR_LOGO_HERE] -->
 *(Reemplaza esta línea con el enlace a tu logo. Ej: `<img src="ruta/a/tu/logo.png" width="200"/>`)*
@@ -75,6 +75,14 @@ The Windows operating system requires Administrator privileges to modify system-
 
 **I'm getting matchmaking timeouts, what's wrong?**
 You may have blocked too many regions. The matchmaking system needs at least one healthy region to connect to. Ensure you leave your closest datacenter completely unblocked.
+
+---
+
+## 💖 Support the Project
+
+ServerS is developed for free with passion. If this tool saved your matches and eliminated your lag, consider buying me a coffee! 
+
+[![Donate with PayPal](https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png)](https://paypal.me/TuUsuarioPayPal)
 
 ---
 

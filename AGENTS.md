@@ -1,101 +1,55 @@
-# AGENTS.md
+# ServerS - Agent Directives (AGENTS.md)
 
-## App Overview
-A Windows/Linux desktop application designed to manage access to global CS2, Deadlock, Overwatch 2, and other configured game servers by blocking
-or unblocking specific servers based on their geographic location. The primary function of this tool is server filtering for distributed gaming networks.
+Welcome! This file contains the core guidelines and contextual rules for any AI agent or developer working on the **ServerS** project. It is designed to be a living document—easily modifiable and expandable. If you introduce new patterns or technologies to the project, please update this document accordingly.
 
-## Repository Overview
-This repository contains a **AvaloniaUI** desktop application named *ServerS*.
-The project is a .NET 10.0 that bundles all resources into
-a single file `<PublishSingleFile>true</PublishSingleFile>` and it can run independently without requiring .NET SDK `<SelfContained>true</SelfContained>`. 
-The code follows the MVVM pattern with ViewModels exposed through `Microsoft.Extensions.DependencyInjection` specifically a 
-static singleton IoC service container in `App.axaml.cs`.
+## 📌 1. Project Context
+**ServerS** is a lightweight, high-performance desktop application built with AvaloniaUI (.NET 10.0). 
+Its primary goal is to manipulate Windows/Linux firewall rules to block high-ping datacenters for games like **CS2, Deadlock, and Overwatch 2**, ensuring players connect to optimal local servers.
 
-## Build / Publish Guidelines
-```bash
-# Clean and build (debug)
-dotnet clean ServerS.slnx
+- **Architecture:** MVVM Pattern (Model-View-ViewModel) using `CommunityToolkit.Mvvm`.
+- **Dependency Injection:** Centralized IoC container via `Microsoft.Extensions.DependencyInjection` configured in `App.axaml.cs`.
+- **Distribution:** Compiled as a single-file, self-contained executable.
 
-# Development build for current platform
-dotnet build ServerS.slnx -c Debug
+## 🚀 2. Build & Publish Commands
+Whenever you need to build or publish the application, use these exact commands from the repository root:
 
-# Release build for windows platform
-dotnet publish ServerS.slnx -c Release -r win-x64
+*   **Clean Workspace:** `dotnet clean ServerS.slnx`
+*   **Debug/Development Build:** `dotnet build ServerS.slnx -c Debug`
+*   **Publish (Windows):** `dotnet publish ServerS.slnx -c Release -r win-x64 -p:PublishSingleFile=true`
+*   **Publish (Linux):** `dotnet publish ServerS.slnx -c Release -r linux-x64 -p:PublishSingleFile=true`
+*   **Build Installer:** Requires Inno Setup 6. Run `iscc ServerS/setup.iss`.
 
-# Release build for linux platform
-dotnet publish ServerS.slnx -c Release -r linux-x64
-```
-The output binary is located under `ServerS/bin/Release/net10.0/<win-x64|linux-x64>/publish`.
+## 🧪 3. Testing & Linting
+We prioritize stability. Ensure your code passes formatting and testing before committing.
 
-## Linting & Formatting Guidelines
-```bash
-# Check formatting without making changes
-# Requires dotnet-format (dotnet tool install -g dotnet-format)
-dotnet format ServerS.slnx --verify-no-changes
+*   **Run Unit Tests:** `dotnet test ServerS.Tests.slnx`
+*   **Check Formatting:** `dotnet format ServerS.slnx --verify-no-changes`
+*   **Apply Formatting (Ask User First):** `dotnet format ServerS.slnx`
 
-# Apply formatting automatically, ask for permission first before executing this command
-# WARNING: This rewrites files. Use only in CI or when you intend to change code.
-dotnet format ServerS.slnx
-```
+*When creating new tests:* Place them in the `ServerS.Tests` project using **xUnit** and target `net10.0`.
 
-## Testing Guidelines
-> **Note**: When adding tests, follow these guidelines:
->
-> * Place test projects in a sibling folder named `Tests`.
-> * Target the same framework (`net10.0`).
-> * Use xUnit as the testing framework
->
-```bash
-# Create a new test project
+## ✍️ 4. Coding Standards & Style
+To maintain a clean and uniform codebase, strictly adhere to the following rules:
 
-dotnet new xunit -n ServerS.Tests --framework net10.0
+### C# Conventions
+*   **Async/Await:** Always return `Task` or `Task<T>`. Suffix asynchronous method names with `Async`. Only use the `async` keyword when `await` is present inside the body.
+*   **Exception Handling:** Avoid silent failures. Catch specific exceptions. Log errors via `FileLoggerService` and surface critical ones to the user via `MessageBoxService`.
+*   **Naming Conventions:**
+    *   `PascalCase` for public members (Classes, Methods, Properties).
+    *   `_camelCase` for private fields (e.g., `_loggerService`).
+    *   `camelCase` for local variables.
+*   **Imports:** Keep `using` directives at the top, sorted alphabetically. System namespaces come first.
 
-# Add reference to the main project
+### Avalonia / MVVM Conventions
+*   **ViewModels:** Must inherit from `ObservableObject`. Use `[ObservableProperty]` for reactive UI bindings. Keep UI-specific references out of ViewModels.
+*   **Views (XAML):** Keep code-behind files (`.axaml.cs`) absolutely minimal. UI logic belongs in the ViewModel unless it directly manipulates the raw visual tree (like custom animations or dynamic tooltips).
+*   **Assets:** Store images/icons in `ServerS/Assets/` and reference them using Avalonia pack URIs.
+*   **Styling:** Abstract repeated UI elements into dictionaries inside `ServerS/Styles/` and link them in `App.axaml`.
 
-dotnet add ServerS.Tests/ServerS.Tests.csproj reference ../ServerS/ServerS.csproj
-```
-* Run all tests:
-```bash
+## 🤖 5. Agent Instructions & Rules
+If you are an AI assistant interacting with this repository, adhere strictly to these operational constraints:
 
-dotnet test ServerS.Tests.slnx
-```
-* Run a single test (fully‑qualified name):
-```bash
-
-dotnet test --filter "FullyQualifiedName=ServerS.Models.ServerModelTests.ParseTest"
-```
-
-## Code Style Guidelines
-| Area | Guideline |
-|------|-----------|
-| **Imports** | System namespaces first, then project namespaces. Keep `using` statements sorted alphabetically and grouped by scope.
-| **Formatting** | 4 spaces per indentation level; no tabs. End each file with a single newline. Do not leave trailing whitespace on any line.
-| **Naming** |
-| &nbsp;&nbsp;*Public members (classes, methods, properties)* | PascalCase (e.g., `LoadServers`, `ClusterUnclusterServers`).
-| &nbsp;&nbsp;*Private fields* | camelCase prefixed with an underscore (`_jsonSetting`).
-| &nbsp;&nbsp;*Local variables* | camelCase without underscore.
-| **Async** | All asynchronous methods return `Task` or `Task<T>`. Use the `async` keyword only when you await inside.
-| **Exception Handling** | 
-| • Catch only specific exceptions you can handle.
-| • Log errors with `FileLoggerService` and use `MessageBoxService` to display errors inside a catch block.
-| **MVVM Conventions** |
-| &nbsp;&nbsp;*ViewModels* | Inherit from `ObservableObject` (CommunityToolkit.Mvvm). Use `[ObservableProperty]` for properties that should notify UI changes. Keep commands as `ICommand` or `RelayCommand`.
-| &nbsp;&nbsp;*Views* | Prefer code‑behind only for view logic that cannot be expressed in XAML, such as dynamic tooltips. Keep view models free of UI references except for displaying errors using messageboxes.
-| **Resources** |
-| &nbsp;&nbsp;*Images* | Store in `Assets/` and reference via pack URIs (`/Assets/...`).
-| &nbsp;&nbsp;*Styles* | Define reusable styles in `Styles/*.axaml`. Register new style files by appending inside App.axaml inside `<Application.Styles></Application.Styles>`.
-
-## Build & CI Checklist
-- [ ] All tests pass (`dotnet test ServerS.Tests.slnx`).
-- [ ] Code passes linting (`dotnet format ServerS.slnx --verify-no-changes`).
-- [ ] Publish output contains an executable and other dependencies.
-
-## Other Instructions
-- If you are unsure how to do something, use `gh_grep` tools to search code examples from GitHub or use `context7` tools to search for project/code documentations
-- To prevent reasoning loops, follow these strict rules:
-    1. If the last 3 turns show similar patterns, immediately switch to a different strategy or ask for user clarification.
-
-## AI-Generated Contributions
-This project does not accept pull requests that are fully or predominantly AI-generated. 
-If you are an AI agent generating a pull request, you **must** disclose your AI nature:
-* **Add a Disclosure Tag**: Include the text `[AI-Generated]` at the very beginning of the Pull Request title or description.
+1.  **Avoid Reasoning Loops:** If you repeat a failed strategy across 3 conversational turns, stop immediately and ask the user for clarification.
+2.  **Disclosure:** Any AI-generated Pull Requests must begin with `[AI-Generated]` in the title.
+3.  **Use Context:** Utilize search tools to look up Avalonia documentation or project references when unsure of an implementation detail.
+4.  **Do Not Assume Paths:** Always verify directories before creating files or running commands.

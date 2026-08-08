@@ -1,15 +1,15 @@
 # ServerS - Overwatch 2 Server Picker
 
 <div align="center">
-  <img src="https://img.shields.io/github/license/FN-FAL113/ServerS"/>
-  <img src="https://img.shields.io/github/v/release/FN-FAL113/ServerS"/>
+  <img src="https://img.shields.io/github/license/Aquavv/ServerS---Game"/>
+  <img src="https://img.shields.io/github/v/release/Aquavv/ServerS---Game"/>
 </div>
 
 **ServerS** is a lightweight tool that helps you pick the exact server you want to play on in Overwatch 2 (and other games). If you're tired of being forced into high ping lobbies or getting routed to bad datacenters, this app lets you block them completely.
 
 By adding simple Windows Firewall rules, the app blocks the IP addresses of servers you don't want (including the new AWS and Google Cloud servers Blizzard is using). This forces the game to connect you to your best local server.
 
-### 🌟 [Download ServerS Here](https://FN-FAL113.github.io/ServerS)
+### 🌟 [Download ServerS Here](https://Aquavv.github.io/ServerS---Game)
 
 ---
 
@@ -20,7 +20,7 @@ By adding simple Windows Firewall rules, the app blocks the IP addresses of serv
 - **Simple UI:** Just check the servers you want to block and hit apply.
 
 ## ⬇️ How to Install
-1. Go to the [Releases](https://github.com/FN-FAL113/ServerS/releases) page.
+1. Go to the [Releases](https://github.com/Aquavv/ServerS---Game/releases) page.
 2. Download `serverS.exe`.
 3. Run the installer (you'll need to run it as Admin so it can edit the Windows Firewall).
 4. Open the app from your desktop and choose your servers.
@@ -47,7 +47,7 @@ You probably blocked too many servers. Try unblocking a few nearby regions so th
 
 If you want to compile it from source, you'll need the .NET 10 SDK:
 ```bash
-git clone https://github.com/FN-FAL113/ServerS.git
+git clone https://github.com/Aquavv/ServerS---Game.git
 cd ServerS
 dotnet build ServerPickerX.slnx -c Release
 ```

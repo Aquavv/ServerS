@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         x:Class="ServerPickerX.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Title="Server Picker X"
+        Title="ServerS"
         Width="500"
         Height="400"
         MinWidth="400"
@@ -46,8 +46,8 @@
             <Grid Grid.Row="0" x:Name="TitleBar" Background="Transparent" PointerPressed="TitleBar_PointerPressed">
                 <ProgressBar Margin="0,-28,0,0" Height="1" Width="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Width}" IsIndeterminate="True" IsVisible="{Binding ShowProgressBar}"/>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0" Spacing="8">
-                    <i:Icon Value="fa-globe" FontSize="14" Foreground="{StaticResource CyanPrimary}" />
-                    <TextBlock Text="SERVER PICKER X" FontWeight="Bold" FontSize="12" LetterSpacing="1" />
+                    <Image Source="avares://ServerS/Assets/planet.png" Width="18" Height="18" />
+                    <TextBlock Text="ServerS" FontWeight="Bold" FontSize="12" LetterSpacing="1" />
                 </StackPanel>
                 
                 <userControls:TitleBarButtons HorizontalAlignment="Right" />

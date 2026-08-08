@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="https://github.com/projektanker/icons.avalonia"
+        xmlns:views="clr-namespace:ServerPickerX.Views"
+        mc:Ignorable="d"
+        x:Class="ServerPickerX.Views.CustomDialogWindow"
+        x:DataType="views:CustomDialogWindow"
+        Title="{Binding TitleText}"
+        Width="400"
+        SizeToContent="Height"
+        WindowDecorations="None"
+        WindowStartupLocation="CenterOwner"
+        Background="#0b0f19"
+        Foreground="#f8fafc"
+        FontFamily="Inter">
+
+    <Window.Styles>
+        <Style Selector="Button.dialog-btn">
+            <Setter Property="Background" Value="#1e293b"/>
+            <Setter Property="Foreground" Value="#f8fafc"/>
+            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="Padding" Value="15,6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#334155"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style Selector="Button.dialog-btn:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#334155"/>
+            <Setter Property="BorderBrush" Value="#475569"/>
+        </Style>
+        <Style Selector="Button.dialog-btn.primary">
+            <Setter Property="Background" Value="#00f2ff"/>
+            <Setter Property="Foreground" Value="#0b0f19"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#00f2ff"/>
+        </Style>
+        <Style Selector="Button.dialog-btn.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#38bdf8"/>
+            <Setter Property="BorderBrush" Value="#38bdf8"/>
+        </Style>
+    </Window.Styles>
+
+    <Border BorderBrush="#1e293b" BorderThickness="1" CornerRadius="4">
+        <Grid RowDefinitions="Auto,*,Auto" Margin="20">
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10">
+                <i:Icon Value="{Binding IconValue}" FontSize="16" Foreground="{Binding IconColor}" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding TitleText}" FontWeight="Bold" FontSize="14" Foreground="#e2e8f0" VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Body -->
+            <TextBlock Grid.Row="1" Text="{Binding Message}" TextWrapping="Wrap" Margin="0,20,0,25" FontSize="13" Foreground="#cbd5e1" VerticalAlignment="Center"/>
+
+            <!-- Footer (Buttons) -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+                <Button Classes="dialog-btn" Content="{Binding CancelText}" IsVisible="{Binding ShowCancel}" Click="CancelButton_Click"/>
+                <Button Classes="dialog-btn primary" Content="{Binding OkText}" Click="OkButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,142 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ServerPickerX.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:ServerPickerX.Converters"
+        xmlns:userControls="using:ServerPickerX"
+        xmlns:i="https://github.com/projektanker/icons.avalonia"
+        xmlns:models="clr-namespace:ServerPickerX.Models"
+        mc:Ignorable="d"
+        x:Class="ServerPickerX.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="Server Picker X"
+        Width="500"
+        Height="400"
+        MinWidth="400"
+        MinHeight="300"
+        Icon="/Assets/favicon.ico"
+        WindowDecorations="BorderOnly"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Background="#0f172a"
+        Foreground="#f8fafc"
+        FontFamily="Inter">
+
+    <Window.Resources>
+        <converters:ImageConverter x:Key="ImageConverter" />
+        <converters:PacketLossColorConverter x:Key="PacketLossColorConverter" />
+        <converters:PingColorConverter x:Key="PingColorConverter" />
+        <SolidColorBrush x:Key="CyanPrimary">#00f2ff</SolidColorBrush>
+        <SolidColorBrush x:Key="GreenSuccess">#22c55e</SolidColorBrush>
+        <SolidColorBrush x:Key="PanelBg">#0f172a</SolidColorBrush>
+        <SolidColorBrush x:Key="PanelBorder">#1e293b</SolidColorBrush>
+        <SolidColorBrush x:Key="HoverBg">#131b2e</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryAction">#2563eb</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryActionHover">#1d4ed8</SolidColorBrush>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Main Layout -->
+        <Grid RowDefinitions="30,Auto,*,Auto" Margin="0">
+            
+            <!-- Top App Bar (Native Draggable Area) -->
+            <Grid Grid.Row="0" x:Name="TitleBar" Background="Transparent" PointerPressed="TitleBar_PointerPressed">
+                <ProgressBar Margin="0,-28,0,0" Height="1" Width="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=Width}" IsIndeterminate="True" IsVisible="{Binding ShowProgressBar}"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0" Spacing="8">
+                    <i:Icon Value="fa-globe" FontSize="14" Foreground="{StaticResource CyanPrimary}" />
+                    <TextBlock Text="SERVER PICKER X" FontWeight="Bold" FontSize="12" LetterSpacing="1" />
+                </StackPanel>
+                
+                <userControls:TitleBarButtons HorizontalAlignment="Right" />
+            </Grid>
+
+            <!-- Custom Header (Ultra-Compact) -->
+            <Border Grid.Row="1" Background="{StaticResource PanelBg}" BorderBrush="{StaticResource PanelBorder}" BorderThickness="0,1,0,1" Padding="10,8">
+                <Grid RowDefinitions="Auto, Auto" RowSpacing="10">
+                    <!-- Top Line: Settings -->
+                    <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="GAME:" Foreground="#64748b" FontSize="10" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <ComboBox x:Name="GameModeComboBox" Classes="game-combobox" SelectionChanged="GameModeComboBox_SelectionChanged" IsEnabled="{Binding IsOperationAllowed}" Width="130" Height="24" FontSize="11" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
+                            <TextBlock Text="REGION:" Foreground="#64748b" FontSize="10" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <ComboBox ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedRegion}" Classes="game-combobox" IsEnabled="{Binding IsOperationAllowed}" Width="80" Height="24" FontSize="11" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Bottom Line: Global Switch & Status -->
+                    <Grid Grid.Row="1" ColumnDefinitions="Auto, *, Auto">
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <i:Icon Value="fa-power-off" FontSize="12" Foreground="#94a3b8" VerticalAlignment="Center"/>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <TextBlock Text="TOGGLE ALL" Foreground="#94a3b8" FontSize="11" FontWeight="Bold" LetterSpacing="0.5"/>
+                                <TextBlock Text="(ON = Play, OFF = Block)" Foreground="#475569" FontSize="9"/>
+                            </StackPanel>
+                            <ToggleSwitch IsChecked="{Binding IsMasterToggleEnabled}" OnContent="" OffContent="" VerticalAlignment="Center" MinWidth="0" Margin="0,-4,0,-4">
+                                <ToggleSwitch.RenderTransform>
+                                    <ScaleTransform ScaleX="0.70" ScaleY="0.70" />
+                                </ToggleSwitch.RenderTransform>
+                            </ToggleSwitch>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                            <Ellipse Width="6" Height="6" Fill="{StaticResource GreenSuccess}" />
+                            <TextBlock Text="AUTO-DISCOVERY ON" Foreground="#94a3b8" FontSize="10" LetterSpacing="0.5" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- Single Server Column -->
+            <ScrollViewer Grid.Row="2" Padding="10" HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl ItemsSource="{Binding RegionServers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="models:ServerModel">
+                            <Border Background="Transparent" BorderBrush="{StaticResource PanelBorder}" BorderThickness="0,0,0,1" Padding="4,2" Height="34">
+                                <Grid ColumnDefinitions="Auto, *, Auto, Auto">
+                                    <i:Icon Grid.Column="0" Value="fa-server" FontSize="10" Foreground="#3b82f6" VerticalAlignment="Center" Margin="0,0,8,0" Opacity="0.8"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Description}" Foreground="#cbd5e1" FontSize="12" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,10,0" />
+                                    <TextBlock Grid.Column="2" Text="{Binding Ping}" Foreground="{Binding Ping, Converter={StaticResource PingColorConverter}}" Opacity="0.9" FontSize="11" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,15,0"/>
+                                    <ToggleSwitch Grid.Column="3" IsChecked="{Binding IsSelected}" OnContent="" OffContent="" VerticalAlignment="Center" MinWidth="0" Margin="0,-4,-4,-4">
+                                        <ToggleSwitch.RenderTransform>
+                                            <ScaleTransform ScaleX="0.70" ScaleY="0.70" />
+                                        </ToggleSwitch.RenderTransform>
+                                    </ToggleSwitch>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <!-- Footer (Ultra-Compact) -->
+            <Border Grid.Row="3" Background="{StaticResource PanelBg}" BorderBrush="{StaticResource PanelBorder}" BorderThickness="0,1,0,0" Padding="10,6">
+                <Grid ColumnDefinitions="Auto, *, Auto">
+                    <!-- Workflow Status (Monospace) -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="4" VerticalAlignment="Center">
+                        <TextBlock Text="[✓]" Foreground="{StaticResource GreenSuccess}" FontSize="10" FontFamily="Consolas, Monospace" VerticalAlignment="Center"/>
+                        <TextBlock Text="Ready" Foreground="{StaticResource CyanPrimary}" FontSize="10" FontFamily="Consolas, Monospace" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    
+                    <!-- Action Controls -->
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
+                        <!-- Circular Refresh Button -->
+                        <Button x:Name="RefreshBtn" Classes="main-btn" Command="{Binding PingServers}" CommandParameter="{Binding ServerModels}" IsEnabled="{Binding IsOperationAllowed}" Background="Transparent" BorderBrush="{StaticResource PanelBorder}" BorderThickness="1" CornerRadius="12" Padding="0" Width="24" Height="24" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <i:Icon Value="fa-rotate-right" Foreground="#94a3b8" FontSize="10" />
+                        </Button>
+                        <!-- Apply Servers Button -->
+                        <Button x:Name="ExecuteBackupBtn" Command="{Binding ExecuteBackupAsync}" IsEnabled="{Binding IsOperationAllowed}" Background="{StaticResource PrimaryAction}" CornerRadius="6" Padding="16,6" Height="28">
+                            <TextBlock Text="APPLY SERVERS" Foreground="#ffffff" FontWeight="Bold" FontSize="11" VerticalAlignment="Center" LetterSpacing="0.5" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Grid>
+</Window>

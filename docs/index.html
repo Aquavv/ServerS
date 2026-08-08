@@ -3,52 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServerS - Overwatch 2 Server Picker</title>
+    <title>ServerS | Overwatch 2 Ping Optimizer</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1 class="logo">ServerS</h1>
-            <p class="tagline">A simple tool to block high ping servers in Overwatch 2.</p>
-        </header>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="nav-logo">ServerS</div>
+            <div class="nav-links">
+                <a href="https://github.com/FN-FAL113/ServerS" target="_blank">GitHub</a>
+                <a href="https://paypal.me/TuUsuarioPayPal" target="_blank" class="nav-btn">Donate</a>
+            </div>
+        </div>
+    </nav>
 
-        <main class="content-wrapper">
-            <div class="info-section">
-                <h2>Play on your own terms</h2>
-                <p>
-                    If you're tired of being thrown into distant lobbies with bad latency, ServerS lets you fix that. 
-                    It uses Windows Firewall to block the IPs of servers you don't want (like those annoying AWS or GCP nodes), forcing the game to put you in a local server.
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="badge">Version 1.0 Available</div>
+                <h1>Take control of your <br><span class="highlight">connection.</span></h1>
+                <p class="subtitle">
+                    ServerS is a lightweight Windows utility that blocks high-ping datacenters in Overwatch 2. Stop relying on bad matchmaking routing and play on your local servers.
                 </p>
-                <ul class="features-list">
-                    <li><strong>No Bans:</strong> Safe to use. It doesn't touch game files or memory.</li>
-                    <li><strong>Easy to use:</strong> Check the servers you hate, and hit apply.</li>
-                    <li><strong>Live Ping:</strong> See your actual latency before you even open the game.</li>
-                </ul>
-            </div>
-
-            <div class="action-section">
-                <div class="download-card">
-                    <h2>Get ServerS</h2>
-                    <p>Download the latest Windows installer here.</p>
-                    <a href="https://github.com/FN-FAL113/ServerS/releases/latest" class="btn btn-primary" target="_blank">
-                        Download .exe
+                <div class="cta-group">
+                    <a href="https://github.com/FN-FAL113/ServerS/releases/latest" class="btn btn-primary">
+                        Download Installer
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     </a>
-                </div>
-                
-                <div class="donation-box">
-                    <p>I make this in my free time. If it fixed your ping, consider buying me a coffee!</p>
-                    <a href="https://paypal.me/TuUsuarioPayPal" class="btn btn-secondary" target="_blank">
-                        Donate via PayPal
-                    </a>
+                    <a href="#features" class="btn btn-secondary">Learn More</a>
                 </div>
             </div>
-        </main>
+            <!-- Visual representation of the app -->
+            <div class="hero-image">
+                <div class="app-mockup">
+                    <div class="mockup-header">
+                        <div class="dots"><span></span><span></span><span></span></div>
+                        <div class="mockup-title">ServerS</div>
+                    </div>
+                    <div class="mockup-body">
+                        <div class="server-item block">
+                            <span class="region">Sao Paulo (GRU1)</span>
+                            <span class="ping bad">145ms</span>
+                            <span class="status">Blocked</span>
+                        </div>
+                        <div class="server-item allow">
+                            <span class="region">Miami (MIA1)</span>
+                            <span class="ping good">32ms</span>
+                            <span class="status">Allowed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <footer>
-            <p>Open source on <a href="https://github.com/FN-FAL113/ServerS" target="_blank">GitHub</a>.</p>
-        </footer>
-    </div>
+        <section id="features" class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>100% Safe</h3>
+                <p>Operates entirely at the Windows Firewall level. Doesn't inject or modify game files, ensuring zero risk of bans.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Live Latency</h3>
+                <p>Monitor real-time ICMP ping to all major Overwatch 2 AWS and GCP datacenters before you even open the game.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Precision Routing</h3>
+                <p>Tired of South American or distant NA servers? Check a box, apply the rules, and never connect to them again.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 ServerS. Open source and free forever.</p>
+            <p class="disclaimer">Not affiliated with Blizzard Entertainment.</p>
+        </div>
+    </footer>
 </body>
 </html>

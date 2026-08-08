@@ -17,6 +17,7 @@
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ApplicationManifest>app.manifest</ApplicationManifest>
+        <ApplicationIcon>Assets\favicon.ico</ApplicationIcon>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
         <Authors>FN-FAL113</Authors>
         <PackageProjectUrl>https://github.com/FN-FAL113/server-picker-x</PackageProjectUrl>

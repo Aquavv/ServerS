@@ -8,6 +8,7 @@ Compression=lzma2
 SolidCompression=yes
 OutputDir=.\Installer
 OutputBaseFilename=serverS
+SetupIconFile=Assets\favicon.ico
 PrivilegesRequired=admin
 
 [Files]

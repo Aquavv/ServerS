@@ -175,7 +175,7 @@ namespace ServerPickerX.ViewModels
 
             ServerModels.Clear();
             ServerModels.AddRange(serverModels);
-            await PingServers(serverModels);
+            _ = PingServers(serverModels);
         }
 
         public PresetModel? GetCurrentGamePreset(string presetName)
@@ -281,8 +281,11 @@ namespace ServerPickerX.ViewModels
 
             try
             {
-                var tasks = serverModels.Select(sm => sm.PingServer()).ToList();
-                await Task.WhenAll(tasks);
+                await Task.Run(async () => 
+                {
+                    var tasks = serverModels.Select(sm => sm.PingServer()).ToList();
+                    await Task.WhenAll(tasks);
+                });
 
                 var sorted = ServerModels.OrderBy(s => s.NumericPing).ThenBy(s => s.Name).ToList();
                 ServerModels.Clear();

@@ -32,39 +32,43 @@ namespace ServerPickerX.Services.SystemFirewalls
         {
             try
             {
-                INetFwPolicy2 firewallPolicy = GetFirewallPolicyApi();
-                INetFwRules firewallRules = firewallPolicy.Rules;
-
-                foreach (var serverModel in serverModels)
+                await Task.Run(() =>
                 {
-                    string ruleName = GetFirewallRuleName(serverModel);
-                    string ipAddresses = string.Join(",", serverModel.RelayModels.Select(s => s.IPv4));
+                    INetFwPolicy2 firewallPolicy = GetFirewallPolicyApi();
+                    INetFwRules firewallRules = firewallPolicy.Rules;
 
-                    RemoveFirewallRuleByName(firewallRules, ruleName + "_Out");
-                    RemoveFirewallRuleByName(firewallRules, ruleName + "_In");
+                    foreach (var serverModel in serverModels)
+                    {
+                        string ipAddresses = string.Join(",", serverModel.RelayModels.Select(s => s.IPv4));
 
-                    INetFwRule outboundRule = CreateFirewallRuleApi();
-                    outboundRule.Name = ruleName + "_Out";
-                    outboundRule.Description = serverModel.Description;
-                    outboundRule.Direction = _firewallRuleDirectionOutbound;
-                    outboundRule.Action = _firewallRuleActionBlock;
-                    outboundRule.Protocol = _firewallRuleProtocolAny;
-                    outboundRule.RemoteAddresses = ipAddresses;
-                    outboundRule.Enabled = true;
-                    outboundRule.Profiles = _firewallRuleProfilesAll;
-                    firewallRules.Add(outboundRule);
+                        string ruleName = GetFirewallRuleName(serverModel);
+                        RemoveFirewallRuleByName(firewallRules, ruleName); // legacy support
+                        RemoveFirewallRuleByName(firewallRules, ruleName + "_Out");
+                        RemoveFirewallRuleByName(firewallRules, ruleName + "_In");
 
-                    INetFwRule inboundRule = CreateFirewallRuleApi();
-                    inboundRule.Name = ruleName + "_In";
-                    inboundRule.Description = serverModel.Description;
-                    inboundRule.Direction = _firewallRuleDirectionInbound;
-                    inboundRule.Action = _firewallRuleActionBlock;
-                    inboundRule.Protocol = _firewallRuleProtocolAny;
-                    inboundRule.RemoteAddresses = ipAddresses;
-                    inboundRule.Enabled = true;
-                    inboundRule.Profiles = _firewallRuleProfilesAll;
-                    firewallRules.Add(inboundRule);
-                }
+                        INetFwRule outboundRule = CreateFirewallRuleApi();
+                        outboundRule.Name = ruleName + "_Out";
+                        outboundRule.Description = serverModel.Description;
+                        outboundRule.Direction = _firewallRuleDirectionOutbound;
+                        outboundRule.Action = _firewallRuleActionBlock;
+                        outboundRule.Protocol = _firewallRuleProtocolAny;
+                        outboundRule.RemoteAddresses = ipAddresses;
+                        outboundRule.Enabled = true;
+                        outboundRule.Profiles = _firewallRuleProfilesAll;
+                        firewallRules.Add(outboundRule);
+
+                        INetFwRule inboundRule = CreateFirewallRuleApi();
+                        inboundRule.Name = ruleName + "_In";
+                        inboundRule.Description = serverModel.Description;
+                        inboundRule.Direction = _firewallRuleDirectionInbound;
+                        inboundRule.Action = _firewallRuleActionBlock;
+                        inboundRule.Protocol = _firewallRuleProtocolAny;
+                        inboundRule.RemoteAddresses = ipAddresses;
+                        inboundRule.Enabled = true;
+                        inboundRule.Profiles = _firewallRuleProfilesAll;
+                        firewallRules.Add(inboundRule);
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -77,16 +81,19 @@ namespace ServerPickerX.Services.SystemFirewalls
         {
             try
             {
-                INetFwPolicy2 firewallPolicy = GetFirewallPolicyApi();
-                INetFwRules firewallRules = firewallPolicy.Rules;
-
-                foreach (var serverModel in serverModels)
+                await Task.Run(() =>
                 {
-                    string ruleName = GetFirewallRuleName(serverModel);
-                    RemoveFirewallRuleByName(firewallRules, ruleName); // legacy support
-                    RemoveFirewallRuleByName(firewallRules, ruleName + "_Out");
-                    RemoveFirewallRuleByName(firewallRules, ruleName + "_In");
-                }
+                    INetFwPolicy2 firewallPolicy = GetFirewallPolicyApi();
+                    INetFwRules firewallRules = firewallPolicy.Rules;
+
+                    foreach (var serverModel in serverModels)
+                    {
+                        string ruleName = GetFirewallRuleName(serverModel);
+                        RemoveFirewallRuleByName(firewallRules, ruleName); // legacy support
+                        RemoveFirewallRuleByName(firewallRules, ruleName + "_Out");
+                        RemoveFirewallRuleByName(firewallRules, ruleName + "_In");
+                    }
+                });
             }
             catch (Exception ex)
             {

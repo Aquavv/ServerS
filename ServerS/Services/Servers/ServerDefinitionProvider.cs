@@ -29,7 +29,13 @@ namespace ServerPickerX.Services.Servers
             var path = "";
             try
             {
-                path = Path.Combine(AppContext.BaseDirectory, "ServerDefinitions.json");
+                var docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                var appFolder = Path.Combine(docPath, "ServerS");
+                if (!Directory.Exists(appFolder))
+                {
+                    Directory.CreateDirectory(appFolder);
+                }
+                path = Path.Combine(appFolder, "ServerDefinitions.json");
 
                 if (!File.Exists(path)) 
                 {

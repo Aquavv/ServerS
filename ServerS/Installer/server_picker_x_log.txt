@@ -1,0 +1,6 @@
+[2026-08-08 16:58:43] INFO: Successfully changed locale to en-us
+[2026-08-08 16:59:02] INFO: Servers unblocked successfully
+[2026-08-08 16:59:07] INFO: Successfully changed locale to en-us
+[2026-08-08 16:59:12] INFO: Servers unblocked successfully
+[2026-08-08 16:59:16] INFO: Successfully changed locale to en-us
+[2026-08-08 16:59:16] ERROR: Failed to load Overwatch 2 servers | Details: Local server file not found: C:\Users\aqua\Documents\GitHub\ServerS - Game\ServerS\Installer\Assets/overwatch.json

@@ -40,7 +40,19 @@ namespace ServerPickerX.Settings
         public virtual Dictionary<string, string> last_selected_preset_names { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
         [JsonIgnore]
-        public readonly string jsonFilePath = "./settings.json";
+        public string jsonFilePath
+        {
+            get
+            {
+                var docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                var appFolder = Path.Combine(docPath, "ServerS");
+                if (!Directory.Exists(appFolder))
+                {
+                    Directory.CreateDirectory(appFolder);
+                }
+                return Path.Combine(appFolder, "settings.json");
+            }
+        }
 
         [JsonIgnore]
         public readonly JsonSerializerOptions serializerOptions = new()

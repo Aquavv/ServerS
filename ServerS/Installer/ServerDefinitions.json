@@ -1,0 +1,45 @@
+[
+  {
+    "GameMode": "Counter Strike 2",
+    "Id": "cs2",
+    "DisplayName": "CS2",
+    "AppId": 730,
+    "KeywordFilterMode": "exclude",
+    "Keywords": [
+      "China"
+    ],
+    "ClusterKeywords": [
+      "Hong Kong",
+      "Sweden",
+      "India",
+      "Netherlands"
+    ],
+    "ResponseUrlTemplate": "https://api.steampowered.com/ISteamApps/GetSDRConfig/v1/?appid={0}"
+  },
+  {
+    "GameMode": "Deadlock",
+    "Id": "deadlock",
+    "DisplayName": "Deadlock",
+    "AppId": 1422450,
+    "KeywordFilterMode": "none",
+    "Keywords": [],
+    "ClusterKeywords": [
+      "China",
+      "Hong Kong",
+      "Sweden",
+      "India",
+      "Netherlands"
+    ],
+    "ResponseUrlTemplate": "https://api.steampowered.com/ISteamApps/GetSDRConfig/v1/?appid={0}"
+  },
+  {
+    "GameMode": "Overwatch 2",
+    "Id": "overwatch2",
+    "DisplayName": "Overwatch 2",
+    "AppId": 514159,
+    "KeywordFilterMode": "none",
+    "Keywords": [],
+    "ClusterKeywords": [],
+    "ResponseUrlTemplate": "local://Assets/overwatch.json"
+  }
+]

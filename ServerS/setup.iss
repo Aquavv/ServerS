@@ -23,4 +23,4 @@ Name: "{autodesktop}\ServerS"; Filename: "{app}\ServerS.exe"; Tasks: desktopicon
 Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Additional icons:"; Flags: checkedonce
 
 [Run]
-Filename: "{app}\ServerS.exe"; Description: "Launch ServerS"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\ServerS.exe"; Description: "Launch ServerS"; Flags: nowait postinstall skipifsilent shellexec

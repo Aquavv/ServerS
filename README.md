@@ -1,11 +1,11 @@
-# ServerS - Overwatch 2 Server Picker
+# ServerS - CS2, Deadlock & Overwatch 2 Server Picker
 
 <div align="center">
   <img src="https://img.shields.io/github/license/Aquavv/ServerS---Game"/>
   <img src="https://img.shields.io/github/v/release/Aquavv/ServerS---Game"/>
 </div>
 
-**ServerS** is a lightweight tool that helps you pick the exact server you want to play on in Overwatch 2 (and other games). If you're tired of being forced into high ping lobbies or getting routed to bad datacenters, this app lets you block them completely.
+**ServerS** is a lightweight tool that helps you pick the exact server you want to play on in CS2, Deadlock, and Overwatch 2. If you're tired of being forced into high ping lobbies or getting routed to bad datacenters, this app lets you block them completely.
 
 By adding simple Windows Firewall rules, the app blocks the IP addresses of servers you don't want (including the new AWS and Google Cloud servers Blizzard is using). This forces the game to connect you to your best local server.
 
@@ -49,7 +49,7 @@ If you want to compile it from source, you'll need the .NET 10 SDK:
 ```bash
 git clone https://github.com/Aquavv/ServerS---Game.git
 cd ServerS
-dotnet build ServerPickerX.slnx -c Release
+dotnet build ServerS.slnx -c Release
 ```
 To build the installer itself, you'll need [Inno Setup 6](https://jrsoftware.org/isinfo.php). Just run `iscc setup.iss`.
 

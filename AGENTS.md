@@ -1,7 +1,7 @@
 # AGENTS.md
 
 ## App Overview
-A Windows/Linux desktop application designed to manage access to global Overwatch 2 and other configured game servers by blocking
+A Windows/Linux desktop application designed to manage access to global CS2, Deadlock, Overwatch 2, and other configured game servers by blocking
 or unblocking specific servers based on their geographic location. The primary function of this tool is server filtering for distributed gaming networks.
 
 ## Repository Overview

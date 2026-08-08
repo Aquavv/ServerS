@@ -33,19 +33,6 @@ namespace ServerPickerX.ViewModels
                     s.Description.Contains(SearchText, StringComparison.OrdinalIgnoreCase)
                 ));
 
-        public ObservableCollectionExtended<ServerModel> NaServers => new(FilteredServerModels.Where(s => s.Region == "NA"));
-        public ObservableCollectionExtended<ServerModel> SaServers => new(FilteredServerModels.Where(s => s.Region == "SA"));
-        public ObservableCollectionExtended<ServerModel> EuServers => new(FilteredServerModels.Where(s => s.Region == "EU"));
-        public ObservableCollectionExtended<ServerModel> AsServers => new(FilteredServerModels.Where(s => s.Region == "AS"));
-        public ObservableCollectionExtended<ServerModel> OceServers => new(FilteredServerModels.Where(s => s.Region == "OCE"));
-
-        public List<string> Regions { get; } = ["NA", "SA", "EU", "AS", "OCE"];
-        
-        [ObservableProperty]
-        [NotifyPropertyChangedFor(nameof(RegionServers))]
-        public string selectedRegion = "NA";
-
-        public ObservableCollectionExtended<ServerModel> RegionServers => new(FilteredServerModels.Where(s => s.Region == SelectedRegion));
 
         public ObservableCollectionExtended<PresetModel> PresetItems { get; set; } = [];
 
@@ -184,19 +171,8 @@ namespace ServerPickerX.ViewModels
                 ? serverData.ClusteredServers
                 : serverData.UnclusteredServers;
 
-            foreach (var server in serverModels)
-            {
-                server.Region = GetRegionForServer(server.Name + server.Description);
-            }
-
             ServerModels.Clear();
             ServerModels.AddRange(serverModels);
-            OnPropertyChanged(nameof(NaServers));
-            OnPropertyChanged(nameof(SaServers));
-            OnPropertyChanged(nameof(EuServers));
-            OnPropertyChanged(nameof(AsServers));
-            OnPropertyChanged(nameof(OceServers));
-            OnPropertyChanged(nameof(RegionServers));
 
             PingServers(serverModels);
         }
@@ -650,23 +626,6 @@ namespace ServerPickerX.ViewModels
             SelectedPreset = null;
         }
 
-        private string GetRegionForServer(string id)
-        {
-            if (string.IsNullOrEmpty(id)) return "NA";
-            id = id.ToLower();
-            var na = new[] { "sjc", "iad", "lax", "ord", "sea", "atl", "dfw", "us", "america", "chicago", "los angeles", "new york", "seattle", "lax1", "ord1" };
-            var sa = new[] { "gru", "lim", "scl", "eze", "brazil", "chile", "peru", "argentina", "south america", "sao paulo", "são paulo", "sae1", "sao1" };
-            var eu = new[] { "fra", "lhr", "sto", "vie", "mad", "par", "waw", "europe", "frankfurt", "london", "madrid", "paris", "stockholm", "warsaw", "vienna", "amsterdam", "ams1", "cdg1" };
-            var @as = new[] { "hkg", "sgp", "tyo", "seo", "bom", "maa", "dxb", "asia", "singapore", "tokyo", "seoul", "hong kong", "india", "mumbai", "chennai", "dubai", "taiwan", "korea", "icn1", "tyo1", "bahrain", "mes1", "bah1" };
-            var oce = new[] { "syd", "australia", "oceania", "sydney", "syd1", "syd2" };
-            
-            if (sa.Any(x => id.Contains(x))) return "SA";
-            if (eu.Any(x => id.Contains(x))) return "EU";
-            if (@as.Any(x => id.Contains(x))) return "AS";
-            if (oce.Any(x => id.Contains(x))) return "OCE";
-            if (na.Any(x => id.Contains(x))) return "NA";
-            
-            return "NA";
-        }
+
     }
 }

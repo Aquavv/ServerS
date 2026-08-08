@@ -64,8 +64,8 @@
                         </StackPanel>
                         
                         <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
-                            <TextBlock Text="REGION:" Foreground="#64748b" FontSize="10" VerticalAlignment="Center" FontWeight="Bold"/>
-                            <ComboBox ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedRegion}" Classes="game-combobox" IsEnabled="{Binding IsOperationAllowed}" Width="80" Height="24" FontSize="11" VerticalAlignment="Center"/>
+                            <TextBlock Text="SEARCH:" Foreground="#64748b" FontSize="10" VerticalAlignment="Center" FontWeight="Bold"/>
+                            <TextBox Text="{Binding SearchText}" Watermark="Filter..." IsEnabled="{Binding IsOperationAllowed}" Width="120" Height="24" FontSize="11" VerticalAlignment="Center" Padding="4,2"/>
                         </StackPanel>
                     </Grid>
 
@@ -94,7 +94,7 @@
 
             <!-- Single Server Column -->
             <ScrollViewer Grid.Row="2" Padding="10" HorizontalScrollBarVisibility="Disabled">
-                <ItemsControl ItemsSource="{Binding RegionServers}">
+                <ItemsControl ItemsSource="{Binding FilteredServerModels}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="models:ServerModel">
                             <Border Background="Transparent" BorderBrush="{StaticResource PanelBorder}" BorderThickness="0,0,0,1" Padding="4,2" Height="34">

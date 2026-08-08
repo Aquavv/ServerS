@@ -47,9 +47,10 @@ To maintain a clean and uniform codebase, strictly adhere to the following rules
 *   **Styling:** Abstract repeated UI elements into dictionaries inside `ServerS/Styles/` and link them in `App.axaml`.
 
 ## 🤖 5. Agent Instructions & Rules
+This project was **entirely coded by a human**. AI was strictly used as a supportive tool for formatting and assistance, not for generating the core logic. 
+
 If you are an AI assistant interacting with this repository, adhere strictly to these operational constraints:
 
 1.  **Avoid Reasoning Loops:** If you repeat a failed strategy across 3 conversational turns, stop immediately and ask the user for clarification.
-2.  **Disclosure:** Any AI-generated Pull Requests must begin with `[AI-Generated]` in the title.
-3.  **Use Context:** Utilize search tools to look up Avalonia documentation or project references when unsure of an implementation detail.
-4.  **Do Not Assume Paths:** Always verify directories before creating files or running commands.
+2.  **Use Context:** Utilize search tools to look up Avalonia documentation or project references when unsure of an implementation detail.
+3.  **Do Not Assume Paths:** Always verify directories before creating files or running commands.

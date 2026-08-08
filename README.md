@@ -68,3 +68,5 @@ I built this tool to help the community play without lag. If it helped you out a
 The base code used in this project was created by **[FN-FAL113](https://github.com/FN-FAL113)** (creator of Server Picker X). 
 
 I have visually overhauled and fixed the interface, added full support for Overwatch 2 (including the massive AWS and GCP subnet blocks), and optimized the overall routing performance. All credit for the original core logic and architecture goes to them.
+
+> **Note:** This project was entirely coded by a human. AI was strictly used as a supportive tool for formatting and minor assistance, not for generating the core logic or architecture.

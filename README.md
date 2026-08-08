@@ -47,7 +47,7 @@ You probably blocked too many servers. Try unblocking a few nearby regions so th
 
 If you want to compile it from source, you'll need the .NET 10 SDK:
 ```bash
-git clone https://github.com/Aquavv/ServerS---Game.git
+git clone https://github.com/Aquavv/ServerS.git
 cd ServerS
 dotnet build ServerS.slnx -c Release
 ```

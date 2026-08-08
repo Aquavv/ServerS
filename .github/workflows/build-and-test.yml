@@ -18,8 +18,10 @@ jobs:
         with:
           dotnet-version: '10.0.x'
       - name: Install dependencies
-        run: dotnet restore ServerS.slnx
+        run: |
+          dotnet restore ServerS.slnx
+          dotnet restore ServerS.Tests.slnx
       - name: Build
         run: dotnet build ServerS.slnx --no-restore
       - name: Test (XUnit)
-        run: dotnet test ServerS.Tests.slnx
+        run: dotnet test ServerS.Tests.slnx --no-restore

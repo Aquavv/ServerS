@@ -20,7 +20,7 @@ By adding simple Windows Firewall rules, the app blocks the IP addresses of serv
 - **Simple UI:** Just check the servers you want to block and hit apply.
 
 ## ⬇️ How to Install
-1. Go to the [Releases](https://github.com/Aquavv/ServerS---Game/releases) page.
+1. Go to the [Releases](https://github.com/Aquavv/ServerS/releases) page.
 2. Download `serverS.exe`.
 3. Run the installer (you'll need to run it as Admin so it can edit the Windows Firewall).
 4. Open the app from your desktop and choose your servers.

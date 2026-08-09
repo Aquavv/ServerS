@@ -140,7 +140,7 @@ namespace ServerPickerX.Models
                         {
                             Ping = res.RoundtripTime + "ms";
                             NumericPing = (int)res.RoundtripTime;
-                            Status = "Online";
+                            Status = "✔️";
                             PacketLoss = "0%";
                             return; // Fallback succeeded, we can exit early
                         }
@@ -189,14 +189,14 @@ namespace ServerPickerX.Models
                 double lossPercent = (1 - ((double)successCount / probeCount)) * 100;
                 Ping = successCount > 0 ? finalBestRtt + "ms" : "Timeout";
                 NumericPing = successCount > 0 ? (int)finalBestRtt : 999;
-                Status = successCount > 0 ? "✅" : "❌";
+                Status = successCount > 0 ? "✔️" : "🔴";
                 PacketLoss = $"{lossPercent:F0}%";
             } else if (Ping == "Pinging server")
             {
                 Ping = "Timeout";
                 NumericPing = 999;
                 PacketLoss = "";
-                Status = "❌";
+                Status = "🔴";
             }
         }
     }

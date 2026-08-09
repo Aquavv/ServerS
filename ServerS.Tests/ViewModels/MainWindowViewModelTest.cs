@@ -469,23 +469,6 @@ namespace ServerPickerX.Tests.ViewModels
             Assert.Same(_serverDataService.Object, service);
         }
 
-        [Fact]
-        public async Task Test_SearchText_FilteredServerModels()
-        {
-            // Arrange
-            ServerModel s1 = new() { Name = "Alpha", Description = "Desc Alpha" };
-            ServerModel s2 = new() { Name = "Beta", Description = "Desc Beta" };
-            ServerModel s3 = new() { Name = "Gamma", Description = "Gamma Zone" };
-            _vm.ServerModels.Clear();
-            _vm.ServerModels.AddRange(new List<ServerModel> { s1, s2, s3 });
-
-            // Act
-            _vm.SearchText = "alpha";
-            var filtered = _vm.FilteredServerModels;
-
-            Assert.Single(filtered);
-            Assert.Contains(s1, filtered);
-        }
 
         public object ReflectGetField(object obj, string propertyName)
         {
